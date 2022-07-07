@@ -1,9 +1,9 @@
-from email import message
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
 from models.route import Route
 from models.routes import Routes
+from models.signals import Signals
 
 app = Flask(__name__)
 CORS(app)
@@ -47,21 +47,21 @@ def route(bus_id):
        
         
 @app.route('/stops', methods=['POST'])
-def location():
-    body = request.get_json()
-    return jsonify()
-
+def stops():
+    pass
 
 @app.route('/signals', methods=['POST'])
-def location():
-    body = request.get_json()
-    return jsonify()
-
+def signal():
+    new_signal = Signals(request.json['bus_name'], request.json['stop_id'])
+    if new_signal.post_signal(new_signal.__dict__):
+        return jsonify(message='Signal added')
+    else:
+        return jsonify(message='It has an error request')
 
 @app.route('/signals/<string:bus_name>', methods=['GET'])
-def locations():
-    return jsonify(message='GET')
-
+def signals(bus_name):
+    get_signals = Signals(None, None)
+    return jsonify(get_signals.get_bus_by_signals(bus_name))
 
 
 @app.route('/feedback', methods=['GET','POST'])
@@ -72,6 +72,6 @@ def feedbacks():
         return jsonify(message='POST')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(load_dotenv=True, port=8080)
 
 

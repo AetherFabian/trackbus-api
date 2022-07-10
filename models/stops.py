@@ -18,9 +18,9 @@ class Stops():
         return stops
     
     def post_stop(request):
-        response = database.db.stops.insert_one(request)
-        print(request['stop_id'])
-        return (request)
+        database.db.stops.insert_one(request)
+        request.pop('_id')
+        return request
     
     def check_if_id_exists(self, stop_id):
         response = database.db.stops.find_one({'stop_id': stop_id})

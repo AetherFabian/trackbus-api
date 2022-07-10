@@ -1,7 +1,5 @@
 import database
-from base import Base
-
-class Route(Base):
+class Route():
     
     def __init__(self, bus_id, bus_name, bus_recognizer):
         self.bus_id = bus_id
@@ -21,7 +19,13 @@ class Route(Base):
         database.db.routes.update_one({'bus_id': route['bus_id']}, {'$set': route})
         return route
         
-            
     def delete_route(self, route):
         database.db.routes.delete_one({'bus_id': route['bus_id']})
         return {{'message':'Route deleted'},{route}}
+    
+    def check_if_id_exists(self, bus_id):
+        response = database.db.routes.find_one({'bus_id': bus_id})
+        if response is not None:
+            return True
+        else:
+            return False

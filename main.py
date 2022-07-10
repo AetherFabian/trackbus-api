@@ -5,6 +5,7 @@ from models.route import Route
 from models.routes import Routes
 from models.signals import Signals
 from models.stops import Stops
+from models.feedback import Feedback
 
 app = Flask(__name__)
 CORS(app)
@@ -77,9 +78,11 @@ def signals(bus_name):
 @app.route('/feedback', methods=['GET','POST'])
 def feedbacks():
     if request.method == 'GET':
-        return jsonify(message='GET')
+        get_feed = Feedback(None, None, None)
+        return jsonify(get_feed.get_feedback())
     elif request.method == 'POST':
-        return jsonify(message='POST')
+        new_feed = Feedback(request.json['content'], request.json['bus_recognizer'])
+        return jsonify(new_feed.post_feedback(new_feed.__dict__))
 
 if __name__ == '__main__':
     app.run(debug=True)

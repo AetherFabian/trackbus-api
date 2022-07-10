@@ -85,6 +85,4 @@ def feedbacks():
         return jsonify(new_feed.post_feedback(new_feed.__dict__))
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
-
+    app.run(load_dotenv=True, port=8080)

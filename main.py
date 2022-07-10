@@ -4,6 +4,7 @@ from flask_cors import CORS
 from models.route import Route
 from models.routes import Routes
 from models.signals import Signals
+from models.stops import Stops
 
 app = Flask(__name__)
 CORS(app)
@@ -46,9 +47,17 @@ def route(bus_id):
             return jsonify(message='This bus does not exist')
        
         
-@app.route('/stops', methods=['POST'])
+@app.route('/stops', methods=['GET','POST'])
 def stops():
-    pass
+    if request.method == 'GET':
+        bus_stops = Stops(None, None, None, None, None)
+        return jsonify(bus_stops.get_stops())
+    elif request.method == 'POST':
+        new_stop = Stops(request.json['stop_id'], request.json['cordinates_x'], request.json['cordinates_y'], request.json['name_stop'], request.json['direction'])
+        if new_stop.check_if_id_exists(new_stop.stop_id):
+            return jsonify(message='ID already exists')
+        return Stops.post_stop(new_stop.__dict__)
+
 
 @app.route('/signals', methods=['POST'])
 def signal():
@@ -57,10 +66,11 @@ def signal():
         return jsonify(message='Signal added')
     else:
         return jsonify(message='It has an error request')
+    
 
 @app.route('/signals/<string:bus_name>', methods=['GET'])
 def signals(bus_name):
-    get_signals = Signals(None, None)
+    get_signals = Signals(None, None, None)
     return jsonify(get_signals.get_bus_by_signals(bus_name))
 
 
@@ -72,6 +82,6 @@ def feedbacks():
         return jsonify(message='POST')
 
 if __name__ == '__main__':
-    app.run(load_dotenv=True, port=8080)
+    app.run(debug=True)
 
 

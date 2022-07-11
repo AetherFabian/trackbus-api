@@ -16,7 +16,7 @@ def ola():
 
 
 
-@app.route('/routes', methods=['GET','POST', 'DELETE'])
+@app.route('/routes', methods=['GET','POST'])
 def routes():
     if request.method == 'GET':
         return jsonify(Routes.get_route())

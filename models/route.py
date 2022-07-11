@@ -17,6 +17,7 @@ class Route():
     
     def put_route(self, route):
         database.db.routes.update_one({'bus_id': route['bus_id']}, {'$set': route})
+        route.pop('_id')
         return route
         
     def delete_route(self, route):

@@ -62,7 +62,7 @@ def stops():
 
 @app.route('/signals', methods=['POST'])
 def signal():
-    new_signal = Signals(request.json['bus_name'], request.json['stop_id'])
+    new_signal = Signals(request.json['bus_name'], request.json['stop_id'], request.json['bus_id'])
     if new_signal.post_signal(new_signal.__dict__):
         return jsonify(message='Signal added')
     else:
@@ -85,4 +85,4 @@ def feedbacks():
         return jsonify(new_feed.post_feedback(new_feed.__dict__))
 
 if __name__ == '__main__':
-    app.run(load_dotenv=True, port=8080)
+    app.run(debug=True, port=8080)

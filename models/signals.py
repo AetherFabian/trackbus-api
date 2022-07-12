@@ -3,7 +3,7 @@ import database
 
 class Signals():
     
-    def __init__(self, bus_id, bus_name, stop_id, spoted_at=None, status=True):
+    def __init__(self,  bus_name, stop_id, bus_id, spoted_at=None, status=True):
         self.bus_id = bus_id
         self.bus_name = bus_name
         self.stop_id = stop_id

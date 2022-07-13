@@ -28,7 +28,7 @@ def routes():
     
     
 
-@app.route('/routes/<int:bus_id>', methods=['GET','PUT','DELETE'])
+@app.route('/routes/<string:bus_id>', methods=['GET','PUT','DELETE'])
 def route(bus_id):
     if request.method == 'GET':
         get_route = Route(bus_id, None, None)

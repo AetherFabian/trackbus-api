@@ -16,6 +16,7 @@ class Signals():
         response_stops = database.db.stops.find({}, {'stop_id': 1, 'cordinates_x': 1, 'cordinates_y': 1, 'name_stop':1})
         signals = []
         stops = []
+        return_signals = []
         
         for stop in response_stops:
             del stop['_id']
@@ -27,7 +28,8 @@ class Signals():
         for x in range(len(stops)):
             for j in reversed(range(len(signals))):
                 if signals[j]['stop_id'] == stops[x]['stop_id']:
-                    return_signals+=[{'cordinates_x': stops[x]['cordinates_x'], 'cordinates_y': stops[x]['cordinates_y'], 'spoted_at': signals[j]['spoted_at'][17:25], 'name_stop': stops[x]['name_stop']}]
+                    print(signals[j])
+                    return_signals+=[{'cordinates_x': stops[x]['cordinates_x'], 'cordinates_y': stops[x]['cordinates_y'], 'spoted_at': signals[j]['spoted_at'].strftime('%H:%M'), 'name_stop': stops[x]['name_stop']}]
                     break            
 
         return return_signals

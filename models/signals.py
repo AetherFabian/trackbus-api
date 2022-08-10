@@ -28,8 +28,7 @@ class Signals():
         for x in range(len(stops)):
             for j in reversed(range(len(signals))):
                 if signals[j]['stop_id'] == stops[x]['stop_id']:
-                    print(signals[j])
-                    return_signals+=[{'cordinates_x': stops[x]['cordinates_x'], 'cordinates_y': stops[x]['cordinates_y'], 'spoted_at': signals[j]['spoted_at'].strftime('%H:%M'), 'name_stop': stops[x]['name_stop']}]
+                    return_signals+=[{'cordinates_x': stops[x]['cordinates_x'], 'cordinates_y': stops[x]['cordinates_y'], 'spoted_at': signals[j]['spoted_at'].strftime('%H:%M:%S'), 'name_stop': stops[x]['name_stop']}]
                     break            
 
         return return_signals

@@ -3,10 +3,11 @@ import database
 
 class Feedback():
     
-    def __init__(self, content, bus_recognizer, comment_date = None):
+    def __init__(self, content, name, email, comment_date = None):
         self.comment_date = comment_date
         self.content = content
-        self.bus_recognizer = bus_recognizer        
+        self.name = name
+        self.email = email
     
     def get_feedback(self):
         response = database.db.feedback.find()

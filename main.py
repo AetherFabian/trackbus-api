@@ -81,7 +81,7 @@ def feedbacks():
         get_feed = Feedback(None, None, None)
         return jsonify(get_feed.get_feedback())
     elif request.method == 'POST':
-        new_feed = Feedback(request.json['content'], request.json['bus_recognizer'])
+        new_feed = Feedback(request.json['content'], request.json['name'], request.json['email'])
         return jsonify(new_feed.post_feedback(new_feed.__dict__))
 
 if __name__ == '__main__':
